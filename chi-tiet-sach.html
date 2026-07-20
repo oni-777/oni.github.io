@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Mô tả sách</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #14171f;
+    --ink-soft: #1f2430;
+    --paper: #f3eee2;
+    --paper-warm: #ece4d2;
+    --gold: #c9982f;
+    --rust: #a8452f;
+    --text-on-ink: #ece7d9;
+    --text-on-paper: #201d18;
+    --text-muted: #6f6a5e;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--text-on-paper);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, .display { font-family: 'Fraunces', serif; font-weight: 600; margin: 0; }
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--rust); outline-offset: 3px; }
+
+  /* ---------- THANH QUAY LẠI ---------- */
+  .back-bar {
+    padding: 1.2rem 2rem;
+    border-bottom: 1px solid #e2d8c0;
+  }
+  .back-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .back-link:hover { color: var(--rust); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+  }
+  .hero-cover {
+    background: linear-gradient(160deg, var(--ink) 0%, var(--ink-soft) 100%);
+    color: var(--text-on-ink);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 4rem 2.5rem; position: relative; overflow: hidden;
+  }
+  .hero-cover::after {
+    content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 60px;
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%); pointer-events: none;
+  }
+  .cover-genre {
+    font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
+  }
+  .cover-title { font-size: clamp(2.2rem, 5.5vw, 3.8rem); line-height: 1.05; max-width: 14ch; }
+  .cover-author { margin-top: 1.5rem; font-size: 1.05rem; opacity: 0.8; font-style: italic; }
+  .cover-rule { width: 48px; height: 2px; background: var(--rust); margin: 1.75rem 0; }
+
+  .hero-info {
+    background: var(--paper);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 4rem 3.5rem; gap: 1.5rem;
+  }
+  .audience-tag {
+    display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.78rem;
+    color: var(--text-muted); border: 1px solid #d8cfba; padding: 0.3rem 0.75rem;
+    border-radius: 100px; width: fit-content;
+  }
+  .blurb { font-size: 1.08rem; max-width: 46ch; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 0.6rem; width: fit-content;
+    background: var(--rust); color: var(--paper); font-weight: 600; font-size: 1rem;
+    padding: 0.9rem 1.8rem; border-radius: 3px; text-decoration: none;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .cta:hover { background: #8f3a26; transform: translateY(-2px); }
+  .cta.disabled { background: #b9ac8f; cursor: not-allowed; pointer-events: none; }
+  .cta-note { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted); }
+
+  /* ---------- MÔ TẢ ---------- */
+  section.body-section { padding: 5rem 3.5rem; }
+  .section-inner { max-width: 780px; margin: 0 auto; }
+  .section-heading { font-size: clamp(1.7rem, 3vw, 2.2rem); margin: 0.5rem 0 1.5rem; }
+  .section-inner p { font-size: 1.08rem; }
+
+  .not-found {
+    min-height: 70vh; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center; gap: 1rem; padding: 2rem;
+  }
+  .not-found h1 { font-size: 2rem; }
+  .not-found a { color: var(--rust); font-weight: 600; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-cover { padding: 5rem 2rem 3rem; }
+    .hero-cover::after { display: none; }
+    .hero-info { padding: 3rem 2rem; }
+    section.body-section { padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="back-bar">
+    <a class="back-link" href="index.html">← Quay lại thư viện</a>
+  </div>
+
+  <!-- Nội dung được JS sinh ra bên dưới, dựa trên ?id= trên URL -->
+  <main id="pageContent"></main>
+
+  <script>
+    /* ============================================================
+       SỬA Ở ĐÂY: mảng "books" này PHẢI giống hệt mảng trong file
+       thu-vien.html (cùng id, title, author...). Mỗi khi bạn thêm/
+       sửa sách ở thu-vien.html, nhớ copy lại y hệt sang đây.
+
+       - id:          phải khớp với id dùng trong thu-vien.html
+       - description: mô tả sách, hiện ở phần "Nội dung sách"
+       - buyLink:     link mua sách thật — để "#" thì nút "Mua ngay"
+                       sẽ tạm bị vô hiệu hoá (mờ đi) cho tới khi bạn
+                       điền link thật vào
+       ============================================================ */
+    const books = [
+      { id: "1", title: "Tâm lý học tội phạm, khắc họa chân dung kẻ phạm tội", author: "Diệp Hồng Vũ", genre: "Kinh dị - Trinh thám",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Tâm lý học tội phạm, khắc họa chân dung kẻ phạm tội]", buyLink: "#" },
+      { id: "2", title: "Tales of an Old Salt", author: "Voldemar Miller", genre: "Truyện thiếu nhi",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Tales of an Old Salt]", buyLink: "#" },
+      { id: "3", title: "The Laws of Human Nature", author: "Robert Greene", genre: "Tâm lý học",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về The Laws of Human Nature]", buyLink: "#" },
+      { id: "4", title: "Rooms", author: "Senbon Umishima", genre: "Nghệ thuật - Minh họa",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Rooms]", buyLink: "#" },
+      { id: "5", title: "Hội những người thích ở nhà", author: "Chiaki Ida", genre: "Tiểu thuyết",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Hội những người thích ở nhà]", buyLink: "#" },
+      { id: "6", title: "Chủ nghĩa khắc kỷ", author: "William B. Irvine", genre: "Triết học",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Chủ nghĩa khắc kỷ]", buyLink: "#" },
+      { id: "7", title: "Đi giữa bấp bênh", author: "Thích Chân Quang", genre: "Tâm linh - Self help",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Đi giữa bấp bênh]", buyLink: "#" },
+      { id: "8", title: "Giao tiếp thông minh - nói đâu trúng đó", author: "Oxford", genre: "Self help",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Giao tiếp thông minh - nói đâu trúng đó]", buyLink: "#" },
+      { id: "9", title: "Đừng lựa chọn an nhàn khi còn trẻ", author: "Cảnh Nhiên", genre: "Self help",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Đừng lựa chọn an nhàn khi còn trẻ]", buyLink: "#" },
+      { id: "10", title: "Điều kỳ diệu của tiệm tạp hóa Namiya", author: "Higashino Keigo", genre: "Tiểu thuyết",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Điều kỳ diệu của tiệm tạp hóa Namiya]", buyLink: "#" },
+      { id: "11", title: "Tôi là người hướng nội - dòng đời tĩnh lặng giữa thế gian ồn ào", author: "Sophia Dembling", genre: "Tâm lý học",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Tôi là người hướng nội - dòng đời tĩnh lặng giữa thế gian ồn ào]", buyLink: "#" },
+      { id: "12", title: "Bóng ma trên phố Ginza - những án mạng kì bí xứ phù tang", author: "Osaka Keikichi", genre: "Kinh dị - Trinh thám",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Bóng ma trên phố Ginza - những án mạng kì bí xứ phù tang]", buyLink: "#" },
+      { id: "13", title: "A diary of silent effort", author: "Lily Trương", genre: "Self help",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về A diary of silent effort]", buyLink: "#" },
+      { id: "14", title: "Chinh phục mục tiêu", author: "Brian Tracy", genre: "Self help",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Chinh phục mục tiêu]", buyLink: "#" },
+      { id: "15", title: "Bí ẩn mãi mãi là bí ẩn", author: "nhiều tác giả", genre: "Trinh thám - Bí ẩn",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Bí ẩn mãi mãi là bí ẩn]", buyLink: "#" },
+      { id: "16", title: "Tư duy phản biện", author: "Zoe Mckey", genre: "Self help",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Tư duy phản biện]", buyLink: "#" },
+      { id: "17", title: "Ticket to childhood", author: "Nguyễn Nhật Ánh", genre: "Tiểu thuyết",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Ticket to childhood]", buyLink: "#" },
+      { id: "18", title: "Người nam châm", author: "Jack Canfield & D. D. Watkins", genre: "Self help",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Người nam châm]", buyLink: "#" },
+      { id: "19", title: "Tiếng gọi nơi hoang dã", author: "Jack London", genre: "Tiểu thuyết",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Tiếng gọi nơi hoang dã]", buyLink: "#" },
+      { id: "20", title: "Tâm lý học tiến hóa", author: "Dylan Evans & Oscar Zarate", genre: "Tâm lý học",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Tâm lý học tiến hóa]", buyLink: "#" },
+      { id: "21", title: "How to love", author: "Thích Nhất Hạnh", genre: "Tâm linh",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về How to love]", buyLink: "#" },
+      { id: "22", title: "Đắc nhân tâm", author: "Dale Carnegie", genre: "Self help",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Đắc nhân tâm]", buyLink: "#" },
+      { id: "23", title: "Bản CV hoàn hảo", author: "Jim Bright & Joanne Earl", genre: "Giáo dục - Kỹ năng nghề nghiệp",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Bản CV hoàn hảo]", buyLink: "#" },
+      { id: "24", title: "Assassin's Creed - Brotherhood", author: "Oliver Bowden", genre: "Tiểu thuyết",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Assassin's Creed - Brotherhood]", buyLink: "#" },
+      { id: "25", title: "Chung một mái nhà 1", author: "Ghost Mikawa", genre: "Tình cảm",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Chung một mái nhà 1]", buyLink: "#" },
+      { id: "26", title: "Chung một mái nhà 2", author: "Ghost Mikawa", genre: "Tình cảm",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Chung một mái nhà 2]", buyLink: "#" },
+      { id: "27", title: "Chung một mái nhà 3", author: "Ghost Mikawa", genre: "Tình cảm",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Chung một mái nhà 3]", buyLink: "#" },
+      { id: "28", title: "Chung một mái nhà 4", author: "Ghost Mikawa", genre: "Tình cảm",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Chung một mái nhà 4]", buyLink: "#" },
+      { id: "29", title: "Chung một mái nhà 5", author: "Ghost Mikawa", genre: "Tình cảm",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Chung một mái nhà 5]", buyLink: "#" },
+      { id: "30", title: "Tự học tiếng anh cấp tốc", author: "", genre: "Giáo dục",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Tự học tiếng anh cấp tốc]", buyLink: "#" },
+      { id: "31", title: "Cân đối ngân sách", author: "", genre: "Giáo dục",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Cân đối ngân sách]", buyLink: "#" },
+      { id: "32", title: "Lời tình yêu - Love better - Love poetry", author: "", genre: "Tình cảm",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Lời tình yêu - Love better - Love poetry]", buyLink: "#" },
+      { id: "33", title: "Tự học tiếng anh cấp tốc - cho người bắt đầu", author: "Huyền Windy", genre: "Giáo dục",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Tự học tiếng anh cấp tốc - cho người bắt đầu]", buyLink: "#" },
+      { id: "34", title: "Đầu tư thông minh", author: "", genre: "Giáo dục",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Đầu tư thông minh]", buyLink: "#" },
+      { id: "35", title: "Tập tành kinh doanh", author: "", genre: "Giáo dục",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Tập tành kinh doanh]", buyLink: "#" },
+      { id: "36", title: "Hiểu đúng về tín dụng", author: "", genre: "Giáo dục",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Hiểu đúng về tín dụng]", buyLink: "#" },
+      { id: "37", title: "Tiết kiệm cho tương lai", author: "", genre: "Giáo dục",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Tiết kiệm cho tương lai]", buyLink: "#" },
+      { id: "38", title: "Hiểu về thuế", author: "", genre: "Giáo dục",
+        audience: "[Đối tượng đọc]", description: "[Mô tả ngắn về Hiểu về thuế]", buyLink: "#" },
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const book = books.find(b => b.id === id);
+    const content = document.getElementById('pageContent');
+
+    if (!book) {
+      content.innerHTML = `
+        <div class="not-found">
+          <h1 class="display">Không tìm thấy sách này</h1>
+          <p>Link có thể chưa đúng, hoặc sách đã bị xoá khỏi danh sách.</p>
+          <a href="index.html">← Quay lại thư viện</a>
+        </div>`;
+    } else {
+      document.getElementById('pageTitle').textContent = book.title + " — " + book.author;
+
+      const hasRealBuyLink = book.buyLink && book.buyLink !== "#";
+      const buyBtn = hasRealBuyLink
+        ? `<a class="cta" href="${book.buyLink}" target="_blank" rel="noopener">Mua sách ngay →</a>`
+        : `<a class="cta disabled" href="javascript:void(0)" title="Chưa gán link mua sách">Mua sách ngay →</a>`;
+
+      content.innerHTML = `
+        <header class="hero">
+          <div class="hero-cover">
+            <div class="cover-genre">${book.genre}</div>
+            <h1 class="cover-title">${book.title}</h1>
+            <div class="cover-rule"></div>
+            <p class="cover-author">của ${book.author}</p>
+          </div>
+          <div class="hero-info">
+            <span class="eyebrow">Giới thiệu sách</span>
+            <span class="audience-tag">Dành cho: ${book.audience}</span>
+            <p class="blurb">${book.description}</p>
+            ${buyBtn}
+            <span class="cta-note">${hasRealBuyLink ? "Nhấn để tới trang mua hàng" : "Link mua hàng sẽ được cập nhật sớm"}</span>
+          </div>
+        </header>
+
+        <section class="body-section">
+          <div class="section-inner">
+            <span class="eyebrow">Nội dung sách</span>
+            <h2 class="section-heading">Về cuốn sách này</h2>
+            <p>${book.description}</p>
+          </div>
+        </section>
+      `;
+    }
+  </script>
+
+</body>
+</html>
