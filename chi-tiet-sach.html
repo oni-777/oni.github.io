@@ -67,7 +67,7 @@
     min-height: 80vh;
   }
   .hero-cover {
-    background: linear-gradient(160deg, var(--ink) 0%, var(--ink-soft) 100%);
+    background: linear-gradient(160deg, var(--cover-a, var(--ink)) 0%, var(--cover-b, var(--ink-soft)) 100%);
     color: var(--text-on-ink);
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     text-align: center; padding: 4rem 2.5rem; position: relative; overflow: hidden;
@@ -76,34 +76,57 @@
     content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 60px;
     background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%); pointer-events: none;
   }
+  .hero-monogram {
+    position: absolute; top: -1rem; left: 50%; transform: translateX(-50%);
+    font-family: 'Fraunces', serif; font-size: 14rem; font-weight: 600; line-height: 1;
+    color: var(--cover-accent, var(--gold)); opacity: 0.1; pointer-events: none; user-select: none;
+  }
+  .hero-cover-icon {
+    width: 72px; height: 72px;
+    color: var(--cover-accent, var(--gold));
+    opacity: 0.85;
+    position: relative;
+  }
+  .hero-cover-icon svg { width: 100%; height: 100%; }
   .cover-genre {
     font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
+    text-transform: uppercase; color: var(--cover-accent, var(--gold)); margin-bottom: 1.5rem;
+    position: relative;
   }
-  .cover-title { font-size: clamp(2.2rem, 5.5vw, 3.8rem); line-height: 1.05; max-width: 14ch; }
-  .cover-author { margin-top: 1.5rem; font-size: 1.05rem; opacity: 0.8; font-style: italic; }
-  .cover-rule { width: 48px; height: 2px; background: var(--rust); margin: 1.75rem 0; }
+  .cover-title { font-size: clamp(2.2rem, 5.5vw, 3.8rem); line-height: 1.05; max-width: 14ch; position: relative; }
+  .cover-author { margin-top: 1.5rem; font-size: 1.05rem; opacity: 0.8; font-style: italic; position: relative; }
+  .cover-rule { width: 48px; height: 2px; background: var(--cover-accent, var(--rust)); margin: 1.75rem 0; position: relative; }
 
   .hero-info {
     background: var(--paper);
     display: flex; flex-direction: column; justify-content: center;
-    padding: 4rem 3.5rem; gap: 1.5rem;
+    padding: 4rem 3.5rem; gap: 1rem;
   }
-  .audience-tag {
+  .info-title {
+    font-size: clamp(2rem, 4.2vw, 2.8rem);
+    line-height: 1.1;
+  }
+  .info-author {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+  .info-genre-tag {
     display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.78rem;
-    color: var(--text-muted); border: 1px solid #d8cfba; padding: 0.3rem 0.75rem;
-    border-radius: 100px; width: fit-content;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--cover-accent, var(--rust));
+    border: 1px solid var(--cover-accent, var(--rust)); padding: 0.3rem 0.75rem;
+    border-radius: 100px; width: fit-content; margin: 0.25rem 0 0.5rem;
   }
   .blurb { font-size: 1.08rem; max-width: 46ch; }
   .cta {
     display: inline-flex; align-items: center; gap: 0.6rem; width: fit-content;
     background: var(--rust); color: var(--paper); font-weight: 600; font-size: 1rem;
     padding: 0.9rem 1.8rem; border-radius: 3px; text-decoration: none;
-    transition: transform 0.15s ease, background 0.15s ease;
+    transition: transform 0.15s ease, background 0.15s ease; margin-top: 0.5rem;
   }
   .cta:hover { background: #8f3a26; transform: translateY(-2px); }
   .cta.disabled { background: #b9ac8f; cursor: not-allowed; pointer-events: none; }
-  .cta-note { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--text-muted); }
 
   /* ---------- MÔ TẢ ---------- */
   section.body-section { padding: 5rem 3.5rem; }
@@ -232,6 +255,31 @@
     const book = books.find(b => b.id === id);
     const content = document.getElementById('pageContent');
 
+    /* Bảng màu theo thể loại — giống hệt bên index.html để đồng bộ
+       màu bìa giữa trang thư viện và trang mô tả */
+    const coverThemes = [
+      { match: ["kinh dị", "trinh thám", "bí ẩn"], colors: ["#3a1414", "#200a0a"], accent: "#d4785a",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16h.01"/></svg>` },
+      { match: ["triết học", "tâm linh"], colors: ["#231a3d", "#140f24"], accent: "#c9a9e8",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M6 8c0 3 2.5 4 6 4s6-1 6-4"/></svg>` },
+      { match: ["tự thuyết", "tiểu thuyết"], colors: ["#122036", "#0b1524"], accent: "#7fb3c9",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5c4-2 8-2 8 0v14c0-2-4-2-8 0V5ZM20 5c-4-2-8-2-8 0v14c0-2 4-2 8 0V5Z"/></svg>` },
+      { match: ["self help", "giáo dục", "kỹ năng"], colors: ["#1c2a1c", "#101a10"], accent: "#9bc98a",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13"/><path d="M4 19a2 2 0 0 0 2 2h12M8 8h8M8 12h5"/></svg>` },
+      { match: ["tâm lý", "nghệ thuật"], colors: ["#33210f", "#1e1309"], accent: "#e0ab6a",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>` },
+      { match: ["tình cảm"], colors: ["#341a26", "#1f0f16"], accent: "#e08fa8",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.4-9.5-8.8C1 8 2.4 5 5.6 5c1.8 0 3.3 1 4.4 2.6C11.1 6 12.6 5 14.4 5 17.6 5 19 8 19 11.2 16.5 15.6 12 20 12 20Z"/></svg>` },
+      { match: ["thiếu nhi"], colors: ["#332810", "#1e1709"], accent: "#f0c96a",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 3 2.4 5 5.6.6-4.2 3.8 1.2 5.5L12 15l-5 2.9 1.2-5.5L4 8.6l5.6-.6z"/></svg>` },
+    ];
+    const defaultTheme = { colors: ["#14171f", "#1f2430"], accent: "#c9982f",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13"/><path d="M4 19a2 2 0 0 0 2 2h12"/></svg>` };
+    function getTheme(genre) {
+      const g = (genre || "").toLowerCase();
+      return coverThemes.find(t => t.match.some(m => g.includes(m))) || defaultTheme;
+    }
+
     if (!book) {
       content.innerHTML = `
         <div class="not-found">
@@ -247,20 +295,22 @@
         ? `<a class="cta" href="${book.buyLink}" target="_blank" rel="noopener">Mua sách ngay →</a>`
         : `<a class="cta disabled" href="javascript:void(0)" title="Chưa gán link mua sách">Mua sách ngay →</a>`;
 
+      const theme = getTheme(book.genre);
+      const coverStyle = `--cover-a:${theme.colors[0]}; --cover-b:${theme.colors[1]}; --cover-accent:${theme.accent};`;
+      const monogram = (book.title || "?").trim().charAt(0).toUpperCase();
+
       content.innerHTML = `
         <header class="hero">
-          <div class="hero-cover">
-            <div class="cover-genre">${book.genre}</div>
-            <h1 class="cover-title">${book.title}</h1>
-            <div class="cover-rule"></div>
-            <p class="cover-author">của ${book.author}</p>
+          <div class="hero-cover" style="${coverStyle}">
+            <span class="hero-monogram">${monogram}</span>
+            <span class="hero-cover-icon">${theme.icon || ""}</span>
           </div>
           <div class="hero-info">
-            <span class="eyebrow">Giới thiệu sách</span>
-            <span class="audience-tag">Dành cho: ${book.audience}</span>
+            <h1 class="info-title">${book.title}</h1>
+            <p class="info-author">của ${book.author}</p>
+            <span class="info-genre-tag">${book.genre}</span>
             <p class="blurb">${book.description}</p>
             ${buyBtn}
-            <span class="cta-note">${hasRealBuyLink ? "Nhấn để tới trang mua hàng" : "Link mua hàng sẽ được cập nhật sớm"}</span>
           </div>
         </header>
 
