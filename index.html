@@ -165,7 +165,8 @@
   .book-card { display: flex; flex-direction: column; gap: 0.7rem; }
   .book-cover {
     aspect-ratio: 2 / 3; border-radius: 3px;
-    background: linear-gradient(160deg, var(--ink) 0%, var(--ink-soft) 100%);
+    /* Màu nền được set động qua inline style (--cover-a, --cover-b) theo thể loại */
+    background: linear-gradient(160deg, var(--cover-a, var(--ink)) 0%, var(--cover-b, var(--ink-soft)) 100%);
     color: var(--text-on-ink);
     display: flex; flex-direction: column; justify-content: flex-end;
     padding: 1rem; position: relative; overflow: hidden;
@@ -175,17 +176,37 @@
   .book-card:hover .book-cover, .book-card:focus-visible .book-cover {
     transform: translateY(-4px); box-shadow: 0 10px 20px rgba(20,23,31,0.25);
   }
-  .book-cover::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: var(--rust); }
+  .book-cover::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: var(--cover-accent, var(--rust)); }
+  .book-cover-monogram {
+    position: absolute;
+    top: -0.4rem; right: -0.3rem;
+    font-family: 'Fraunces', serif;
+    font-size: 5.5rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--cover-accent, var(--gold));
+    opacity: 0.16;
+    pointer-events: none;
+    user-select: none;
+  }
+  .book-cover-ornament {
+    position: absolute;
+    top: 0.9rem; left: 1rem;
+    width: 22px; height: 22px;
+    opacity: 0.7;
+    color: var(--cover-accent, var(--gold));
+  }
   .book-genre-tag {
     font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+    text-transform: uppercase; color: var(--cover-accent, var(--gold)); margin-bottom: 0.5rem;
+    position: relative;
   }
   .match-badge {
     position: absolute; top: 0.7rem; right: 0.7rem;
     font-family: 'Space Mono', monospace; font-size: 0.62rem;
     background: var(--gold); color: var(--ink); padding: 0.15rem 0.5rem; border-radius: 100px;
   }
-  .book-cover-title { font-family: 'Fraunces', serif; font-size: 1.05rem; line-height: 1.2; }
+  .book-cover-title { font-family: 'Fraunces', serif; font-size: 1.05rem; line-height: 1.2; position: relative; }
   .book-meta-title { font-size: 0.95rem; font-weight: 600; }
   .book-meta-author { font-size: 0.82rem; color: var(--text-muted); }
 
@@ -398,84 +419,116 @@
        ============================================================ */
     const books = [
       { id: "1", title: "Tâm lý học tội phạm, khắc họa chân dung kẻ phạm tội", author: "Diệp Hồng Vũ", genre: "Kinh dị - Trinh thám",
-        description: "[Mô tả ngắn về Tâm lý học tội phạm, khắc họa chân dung kẻ phạm tội]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "2", title: "Tales of an Old Salt", author: "Voldemar Miller", genre: "Truyện thiếu nhi",
-        description: "[Mô tả ngắn về Tales of an Old Salt]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "3", title: "The Laws of Human Nature", author: "Robert Greene", genre: "Tâm lý học",
-        description: "[Mô tả ngắn về The Laws of Human Nature]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "4", title: "Rooms", author: "Senbon Umishima", genre: "Nghệ thuật - Minh họa",
-        description: "[Mô tả ngắn về Rooms]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "5", title: "Hội những người thích ở nhà", author: "Chiaki Ida", genre: "Tiểu thuyết",
-        description: "[Mô tả ngắn về Hội những người thích ở nhà]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "6", title: "Chủ nghĩa khắc kỷ", author: "William B. Irvine", genre: "Triết học",
-        description: "[Mô tả ngắn về Chủ nghĩa khắc kỷ]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "7", title: "Đi giữa bấp bênh", author: "Thích Chân Quang", genre: "Tâm linh - Self help",
-        description: "[Mô tả ngắn về Đi giữa bấp bênh]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "8", title: "Giao tiếp thông minh - nói đâu trúng đó", author: "Oxford", genre: "Self help",
-        description: "[Mô tả ngắn về Giao tiếp thông minh - nói đâu trúng đó]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "9", title: "Đừng lựa chọn an nhàn khi còn trẻ", author: "Cảnh Nhiên", genre: "Self help",
-        description: "[Mô tả ngắn về Đừng lựa chọn an nhàn khi còn trẻ]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "10", title: "Điều kỳ diệu của tiệm tạp hóa Namiya", author: "Higashino Keigo", genre: "Tiểu thuyết",
-        description: "[Mô tả ngắn về Điều kỳ diệu của tiệm tạp hóa Namiya]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "11", title: "Tôi là người hướng nội - dòng đời tĩnh lặng giữa thế gian ồn ào", author: "Sophia Dembling", genre: "Tâm lý học",
-        description: "[Mô tả ngắn về Tôi là người hướng nội - dòng đời tĩnh lặng giữa thế gian ồn ào]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "12", title: "Bóng ma trên phố Ginza - những án mạng kì bí xứ phù tang", author: "Osaka Keikichi", genre: "Kinh dị - Trinh thám",
-        description: "[Mô tả ngắn về Bóng ma trên phố Ginza - những án mạng kì bí xứ phù tang]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "13", title: "A diary of silent effort", author: "Lily Trương", genre: "Self help",
-        description: "[Mô tả ngắn về A diary of silent effort]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "14", title: "Chinh phục mục tiêu", author: "Brian Tracy", genre: "Self help",
-        description: "[Mô tả ngắn về Chinh phục mục tiêu]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "15", title: "Bí ẩn mãi mãi là bí ẩn", author: "nhiều tác giả", genre: "Trinh thám - Bí ẩn",
-        description: "[Mô tả ngắn về Bí ẩn mãi mãi là bí ẩn]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "16", title: "Tư duy phản biện", author: "Zoe Mckey", genre: "Self help",
-        description: "[Mô tả ngắn về Tư duy phản biện]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "17", title: "Ticket to childhood", author: "Nguyễn Nhật Ánh", genre: "Tiểu thuyết",
-        description: "[Mô tả ngắn về Ticket to childhood]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "18", title: "Người nam châm", author: "Jack Canfield & D. D. Watkins", genre: "Self help",
-        description: "[Mô tả ngắn về Người nam châm]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "19", title: "Tiếng gọi nơi hoang dã", author: "Jack London", genre: "Tiểu thuyết",
-        description: "[Mô tả ngắn về Tiếng gọi nơi hoang dã]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "20", title: "Tâm lý học tiến hóa", author: "Dylan Evans & Oscar Zarate", genre: "Tâm lý học",
-        description: "[Mô tả ngắn về Tâm lý học tiến hóa]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "21", title: "How to love", author: "Thích Nhất Hạnh", genre: "Tâm linh",
-        description: "[Mô tả ngắn về How to love]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "22", title: "Đắc nhân tâm", author: "Dale Carnegie", genre: "Self help",
-        description: "[Mô tả ngắn về Đắc nhân tâm]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "23", title: "Bản CV hoàn hảo", author: "Jim Bright & Joanne Earl", genre: "Giáo dục - Kỹ năng nghề nghiệp",
-        description: "[Mô tả ngắn về Bản CV hoàn hảo]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "24", title: "Assassin's Creed - Brotherhood", author: "Oliver Bowden", genre: "Tiểu thuyết",
-        description: "[Mô tả ngắn về Assassin's Creed - Brotherhood]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "25", title: "Chung một mái nhà 1", author: "Ghost Mikawa", genre: "Tình cảm",
-        description: "[Mô tả ngắn về Chung một mái nhà 1]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "26", title: "Chung một mái nhà 2", author: "Ghost Mikawa", genre: "Tình cảm",
-        description: "[Mô tả ngắn về Chung một mái nhà 2]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "27", title: "Chung một mái nhà 3", author: "Ghost Mikawa", genre: "Tình cảm",
-        description: "[Mô tả ngắn về Chung một mái nhà 3]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "28", title: "Chung một mái nhà 4", author: "Ghost Mikawa", genre: "Tình cảm",
-        description: "[Mô tả ngắn về Chung một mái nhà 4]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "29", title: "Chung một mái nhà 5", author: "Ghost Mikawa", genre: "Tình cảm",
-        description: "[Mô tả ngắn về Chung một mái nhà 5]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "30", title: "Tự học tiếng anh cấp tốc", author: "", genre: "Giáo dục",
-        description: "[Mô tả ngắn về Tự học tiếng anh cấp tốc]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "31", title: "Cân đối ngân sách", author: "", genre: "Giáo dục",
-        description: "[Mô tả ngắn về Cân đối ngân sách]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "32", title: "Lời tình yêu - Love better - Love poetry", author: "", genre: "Tình cảm",
-        description: "[Mô tả ngắn về Lời tình yêu - Love better - Love poetry]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "33", title: "Tự học tiếng anh cấp tốc - cho người bắt đầu", author: "Huyền Windy", genre: "Giáo dục",
-        description: "[Mô tả ngắn về Tự học tiếng anh cấp tốc - cho người bắt đầu]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "34", title: "Đầu tư thông minh", author: "", genre: "Giáo dục",
-        description: "[Mô tả ngắn về Đầu tư thông minh]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "35", title: "Tập tành kinh doanh", author: "", genre: "Giáo dục",
-        description: "[Mô tả ngắn về Tập tành kinh doanh]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "36", title: "Hiểu đúng về tín dụng", author: "", genre: "Giáo dục",
-        description: "[Mô tả ngắn về Hiểu đúng về tín dụng]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "37", title: "Tiết kiệm cho tương lai", author: "", genre: "Giáo dục",
-        description: "[Mô tả ngắn về Tiết kiệm cho tương lai]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
       { id: "38", title: "Hiểu về thuế", author: "", genre: "Giáo dục",
-        description: "[Mô tả ngắn về Hiểu về thuế]", buyLink: "#" },
+        description: "[Mô tả]", buyLink: "#" },
     ];
     // Mỗi sách tự tính link trỏ tới trang mô tả (chi-tiet-sach.html?id=...)
     books.forEach(b => { b.link = "chi-tiet-sach.html?id=" + b.id; });
+
+    /* ============================================================
+       BẢNG MÀU BÌA SÁCH THEO THỂ LOẠI (không dùng ảnh thật, tự vẽ
+       bằng CSS/SVG để tránh vấn đề bản quyền ảnh bìa). Mỗi nhóm thể
+       loại có 1 tông màu + 1 icon trang trí riêng. Thể loại nào
+       không khớp nhóm nào sẽ dùng màu mặc định (đen-vàng như cũ).
+       Muốn đổi màu: sửa mã hex trong "colors" bên dưới.
+       ============================================================ */
+    const coverThemes = [
+      { match: ["kinh dị", "trinh thám", "bí ẩn"], colors: ["#3a1414", "#200a0a"], accent: "#d4785a",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16h.01"/></svg>` },
+      { match: ["triết học", "tâm linh"], colors: ["#231a3d", "#140f24"], accent: "#c9a9e8",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M6 8c0 3 2.5 4 6 4s6-1 6-4"/></svg>` },
+      { match: ["tự thuyết", "tiểu thuyết"], colors: ["#122036", "#0b1524"], accent: "#7fb3c9",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5c4-2 8-2 8 0v14c0-2-4-2-8 0V5ZM20 5c-4-2-8-2-8 0v14c0-2 4-2 8 0V5Z"/></svg>` },
+      { match: ["self help", "giáo dục", "kỹ năng"], colors: ["#1c2a1c", "#101a10"], accent: "#9bc98a",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13"/><path d="M4 19a2 2 0 0 0 2 2h12M8 8h8M8 12h5"/></svg>` },
+      { match: ["tâm lý", "nghệ thuật"], colors: ["#33210f", "#1e1309"], accent: "#e0ab6a",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>` },
+      { match: ["tình cảm"], colors: ["#341a26", "#1f0f16"], accent: "#e08fa8",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.4-9.5-8.8C1 8 2.4 5 5.6 5c1.8 0 3.3 1 4.4 2.6C11.1 6 12.6 5 14.4 5 17.6 5 19 8 19 11.2 16.5 15.6 12 20 12 20Z"/></svg>` },
+      { match: ["thiếu nhi"], colors: ["#332810", "#1e1709"], accent: "#f0c96a",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 3 2.4 5 5.6.6-4.2 3.8 1.2 5.5L12 15l-5 2.9 1.2-5.5L4 8.6l5.6-.6z"/></svg>` },
+    ];
+    const defaultTheme = { colors: ["#14171f", "#1f2430"], accent: "#c9982f",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13"/><path d="M4 19a2 2 0 0 0 2 2h12"/></svg>` };
+
+    function getTheme(genre) {
+      const g = (genre || "").toLowerCase();
+      const found = coverThemes.find(t => t.match.some(m => g.includes(m)));
+      return found || defaultTheme;
+    }
 
     // ---------- state ----------
     let searchTerm = "";
@@ -595,9 +648,14 @@
         // "books", nó sẽ tự động dẫn đúng tới đó.
         const hasRealLink = b.link && b.link !== "#";
         const href = hasRealLink ? b.link : "javascript:void(0)";
+        const theme = getTheme(b.genre);
+        const coverStyle = `--cover-a:${theme.colors[0]}; --cover-b:${theme.colors[1]}; --cover-accent:${theme.accent};`;
+        const monogram = (b.title || "?").trim().charAt(0).toUpperCase();
         return `
         <a class="book-card" href="${href}" ${hasRealLink ? "" : 'title="Chưa gán link cho sách này"'}>
-          <div class="book-cover">
+          <div class="book-cover" style="${coverStyle}">
+            <span class="book-cover-monogram">${monogram}</span>
+            <span class="book-cover-ornament">${theme.icon}</span>
             ${b.score > 1 ? `<span class="match-badge">Khớp cao</span>` : ""}
             <div class="book-genre-tag">${b.genre}</div>
             <div class="book-cover-title">${b.title}</div>
