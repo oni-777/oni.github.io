@@ -140,6 +140,13 @@
   }
   .site-title { font-size: 1.15rem; white-space: nowrap; }
 
+  .header-actions { display: flex; align-items: center; gap: 1rem; }
+  .blog-link {
+    font-family: 'Space Mono', monospace; font-size: 0.82rem;
+    color: var(--text-muted); text-decoration: none; white-space: nowrap;
+  }
+  .blog-link:hover { color: var(--rust); }
+
   .menu-btn {
     display: flex; flex-direction: column; gap: 4px;
     background: none; border: none; cursor: pointer; padding: 0.6rem;
@@ -359,9 +366,12 @@
       <h1 class="site-title display">ONIREAD</h1>
     </div>
 
-    <button class="menu-btn" id="menuBtn" aria-label="Mở bộ lọc" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="header-actions">
+      <a href="bai-viet.html" class="blog-link">Bài viết</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Mở bộ lọc" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
   <div class="active-filter-bar" id="filterBar">

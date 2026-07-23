@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Gợi ý sách hay theo từng chủ đề — sách chữa lành khi mất ngủ suy nghĩ nhiều, sách cho người mới đi làm áp lực, trinh thám kinh dị đọc là nghiện. Từ thư viện ONIREAD.">
+<title>Bài viết — ONIREAD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #14171f;
+    --ink-soft: #1f2430;
+    --paper: #f3eee2;
+    --paper-warm: #ece4d2;
+    --gold: #c9982f;
+    --rust: #a8452f;
+    --text-on-ink: #ece7d9;
+    --text-on-paper: #201d18;
+    --text-muted: #6f6a5e;
+    --border: #ddd3ba;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(ellipse 60% 40% at 15% 10%, rgba(169,132,84,0.16), transparent 60%),
+      radial-gradient(ellipse 50% 45% at 85% 25%, rgba(150,110,70,0.14), transparent 55%),
+      radial-gradient(ellipse 70% 50% at 30% 85%, rgba(140,100,60,0.15), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 90% 90%, rgba(160,120,75,0.13), transparent 55%),
+      radial-gradient(ellipse 140% 90% at 50% 50%, transparent 55%, rgba(60,45,30,0.10) 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.35  0 0 0 0 0.28  0 0 0 0 0.18  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-attachment: fixed, fixed, fixed, fixed, fixed, fixed;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 220px 220px;
+    color: var(--text-on-paper);
+    line-height: 1.6;
+  }
+  h1, h2, h3, .display { font-family: 'Fraunces', serif; font-weight: 600; margin: 0; }
+  .eyebrow {
+    font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold);
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--rust); outline-offset: 3px; }
+
+  .back-bar { padding: 1.2rem 2rem; border-bottom: 1px solid var(--border); }
+  .back-link {
+    font-family: 'Space Mono', monospace; font-size: 0.82rem; text-decoration: none;
+    color: var(--text-muted); display: inline-flex; align-items: center; gap: 0.4rem;
+  }
+  .back-link:hover { color: var(--rust); }
+
+  .page-hero { padding: 3.5rem 2rem 2.5rem; max-width: 760px; margin: 0 auto; }
+  .page-hero h1 { font-size: clamp(2rem, 4.5vw, 2.8rem); margin: 0.6rem 0 1rem; }
+  .page-hero p { font-size: 1.05rem; color: var(--text-muted); max-width: 56ch; }
+
+  main { max-width: 760px; margin: 0 auto; padding: 0 2rem 5rem; }
+
+  .article {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .article:first-of-type { border-top: none; padding-top: 0.5rem; }
+  .article h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 0.5rem 0 1rem; }
+  .article-intro { font-size: 1.02rem; margin-bottom: 2rem; }
+
+  .book-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .book-item {
+    display: block; text-decoration: none; color: inherit;
+    background: rgba(255,255,255,0.35);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .book-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(20,23,31,0.1);
+  }
+  .book-item-head { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
+  .book-item-title { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; }
+  .book-item-author { font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+  .book-item-tag {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 100px;
+    color: var(--tag-color, var(--rust)); border: 1px solid var(--tag-color, var(--rust));
+  }
+  .book-item-blurb { font-size: 0.96rem; color: var(--text-on-paper); margin: 0; }
+  .book-item-cta {
+    display: inline-block; margin-top: 0.7rem; font-family: 'Space Mono', monospace;
+    font-size: 0.78rem; color: var(--rust);
+  }
+
+  @media (max-width: 640px) {
+    .page-hero, main { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .back-bar { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="back-bar">
+    <a class="back-link" href="index.html">← Quay lại thư viện</a>
+  </div>
+
+  <div class="page-hero">
+    <span class="eyebrow">Bài viết</span>
+    <h1 class="display">Gợi ý đọc sách theo chủ đề</h1>
+    <p>Không phải lúc nào cũng biết nên đọc gì tiếp theo — đây là vài gợi ý nhỏ,
+       gom theo tâm trạng và hoàn cảnh, để bạn dễ chọn hơn.</p>
+  </div>
+
+  <main>
+
+    <!-- ============ BÀI 1 ============ -->
+    <article class="article">
+      <span class="eyebrow">Chủ đề</span>
+      <h2>5 cuốn sách cho những đêm suy nghĩ nhiều, khó ngủ</h2>
+      <p class="article-intro">
+        Những đêm đầu óc cứ quay cuồng đủ thứ suy nghĩ, ngủ hoài không được?
+        Đây không phải thuốc chữa mất ngủ thần kỳ, nhưng là những cuốn giúp
+        tâm trí chậm lại một chút, có cái gì đó nhẹ nhàng lấp đầy khoảng lặng
+        trước khi ngủ.
+      </p>
+      <div class="book-list">
+        <a class="book-item" href="chi-tiet-sach.html?id=6" style="--tag-color:#c9a9e8">
+          <div class="book-item-head">
+            <span class="book-item-title">Chủ nghĩa khắc kỷ</span>
+            <span class="book-item-author">William B. Irvine</span>
+            <span class="book-item-tag">Triết học</span>
+          </div>
+          <p class="book-item-blurb">Một cách sống từ 2000 năm trước mà vẫn cực kỳ hợp với thế giới hối hả ngày nay. Đọc xong thấy nhẹ cả người!</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+        <a class="book-item" href="chi-tiet-sach.html?id=11" style="--tag-color:#e0ab6a">
+          <div class="book-item-head">
+            <span class="book-item-title">Tôi là người hướng nội</span>
+            <span class="book-item-author">Sophia Dembling</span>
+            <span class="book-item-tag">Tâm lý học</span>
+          </div>
+          <p class="book-item-blurb">Nếu bạn từng bị nói là "trầm quá", "ít nói quá" thì cuốn này sẽ khiến bạn thấy được thấu hiểu.</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+        <a class="book-item" href="chi-tiet-sach.html?id=13" style="--tag-color:#9bc98a">
+          <div class="book-item-head">
+            <span class="book-item-title">A diary of silent effort</span>
+            <span class="book-item-author">Lily Trương</span>
+            <span class="book-item-tag">Self help</span>
+          </div>
+          <p class="book-item-blurb">Nhật ký của những nỗ lực âm thầm — đọc mà thấy như có người đồng hành, động viên mình cố thêm chút nữa.</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+        <a class="book-item" href="chi-tiet-sach.html?id=20" style="--tag-color:#e0ab6a">
+          <div class="book-item-head">
+            <span class="book-item-title">Tâm lý học tiến hóa</span>
+            <span class="book-item-author">Dylan Evans & Oscar Zarate</span>
+            <span class="book-item-tag">Tâm lý học</span>
+          </div>
+          <p class="book-item-blurb">Vì sao con người lại ghen tuông, thích ngồi lê đôi mách, hay sợ nhện? Vừa học vừa cười vì... đúng quá!</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- ============ BÀI 2 ============ -->
+    <article class="article">
+      <span class="eyebrow">Chủ đề</span>
+      <h2>Sách cho người mới đi làm, đang chán nản vì áp lực</h2>
+      <p class="article-intro">
+        Những ngày đầu đi làm đầy bỡ ngỡ, áp lực, đôi lúc chỉ muốn buông xuôi?
+        Mấy cuốn này không hứa "đọc xong là thành công", nhưng chắc chắn cho
+        bạn thêm một chút động lực và vài kỹ năng thực tế để đi tiếp.
+      </p>
+      <div class="book-list">
+        <a class="book-item" href="chi-tiet-sach.html?id=9" style="--tag-color:#9bc98a">
+          <div class="book-item-head">
+            <span class="book-item-title">Đừng lựa chọn an nhàn khi còn trẻ</span>
+            <span class="book-item-author">Cảnh Nhiên</span>
+            <span class="book-item-tag">Self help</span>
+          </div>
+          <p class="book-item-blurb">Một cú hích tinh thần: tuổi trẻ chỉ có một lần, an nhàn quá sớm coi chừng hối tiếc cả đời!</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+        <a class="book-item" href="chi-tiet-sach.html?id=22" style="--tag-color:#9bc98a">
+          <div class="book-item-head">
+            <span class="book-item-title">Đắc nhân tâm</span>
+            <span class="book-item-author">Dale Carnegie</span>
+            <span class="book-item-tag">Self help</span>
+          </div>
+          <p class="book-item-blurb">Cuốn sách gối đầu giường của biết bao thế hệ về nghệ thuật đối nhân xử thế — kinh điển vẫn mãi là kinh điển!</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+        <a class="book-item" href="chi-tiet-sach.html?id=18" style="--tag-color:#9bc98a">
+          <div class="book-item-head">
+            <span class="book-item-title">Người nam châm</span>
+            <span class="book-item-author">Jack Canfield & D. D. Watkins</span>
+            <span class="book-item-tag">Self help</span>
+          </div>
+          <p class="book-item-blurb">Bí mật của quy luật hấp dẫn — làm sao để trở thành "nam châm" thu hút đúng những điều mình mong muốn.</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+        <a class="book-item" href="chi-tiet-sach.html?id=8" style="--tag-color:#9bc98a">
+          <div class="book-item-head">
+            <span class="book-item-title">Giao tiếp thông minh - nói đâu trúng đó</span>
+            <span class="book-item-author">Oxford</span>
+            <span class="book-item-tag">Self help</span>
+          </div>
+          <p class="book-item-blurb">Bí kíp giao tiếp để nói ít mà "trúng" nhiều. Ai hay bị chê nói dài dòng khó hiểu thì đây chính là cuốn dành cho bạn!</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- ============ BÀI 3 ============ -->
+    <article class="article">
+      <span class="eyebrow">Chủ đề</span>
+      <h2>Trinh thám - kinh dị đọc là nghiện, không dừng được</h2>
+      <p class="article-intro">
+        Thích cảm giác rùng mình, hồi hộp mà không dứt ra được? Đây là mấy
+        cuốn dành cho những ai mê phá án, mê bí ẩn, đọc vào là quên luôn giờ giấc.
+      </p>
+      <div class="book-list">
+        <a class="book-item" href="chi-tiet-sach.html?id=1" style="--tag-color:#d4785a">
+          <div class="book-item-head">
+            <span class="book-item-title">Tâm lý học tội phạm, khắc họa chân dung kẻ phạm tội</span>
+            <span class="book-item-author">Diệp Hồng Vũ</span>
+            <span class="book-item-tag">Kinh dị - Trinh thám</span>
+          </div>
+          <p class="book-item-blurb">Đi sâu vào tâm lý của những kẻ phạm tội. Đọc mà rùng mình, nhưng càng đọc càng cuốn!</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+        <a class="book-item" href="chi-tiet-sach.html?id=12" style="--tag-color:#d4785a">
+          <div class="book-item-head">
+            <span class="book-item-title">Bóng ma trên phố Ginza</span>
+            <span class="book-item-author">Osaka Keikichi</span>
+            <span class="book-item-tag">Kinh dị - Trinh thám</span>
+          </div>
+          <p class="book-item-blurb">Những vụ án kỳ bí giữa lòng phố Ginza, đậm chất trinh thám cổ điển Nhật Bản.</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+        <a class="book-item" href="chi-tiet-sach.html?id=15" style="--tag-color:#d4785a">
+          <div class="book-item-head">
+            <span class="book-item-title">Bí ẩn mãi mãi là bí ẩn</span>
+            <span class="book-item-author">nhiều tác giả</span>
+            <span class="book-item-tag">Trinh thám - Bí ẩn</span>
+          </div>
+          <p class="book-item-blurb">Tuyển tập những vụ bí ẩn chưa từng có lời giải — càng đọc càng tò mò, càng nghĩ càng rùng mình!</p>
+          <span class="book-item-cta">Xem chi tiết & mua →</span>
+        </a>
+      </div>
+    </article>
+
+  </main>
+
+</body>
+</html>
