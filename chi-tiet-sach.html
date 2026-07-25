@@ -160,13 +160,24 @@
 <body>
 
   <div class="back-bar">
-    <a class="back-link" href="index.html">← Quay lại thư viện</a>
+    <a class="back-link" id="backLink" href="index.html">← Quay lại thư viện</a>
   </div>
 
   <!-- Nội dung được JS sinh ra bên dưới, dựa trên ?id= trên URL -->
   <main id="pageContent"></main>
 
   <script>
+    // Nếu người đọc đến từ bài viết (bai-viet.html), nút "quay lại"
+    // sẽ đưa họ về đúng bài viết đó thay vì luôn về trang thư viện.
+    (function () {
+      var ref = document.referrer || "";
+      if (ref.indexOf("bai-viet.html") !== -1) {
+        var backLink = document.getElementById('backLink');
+        backLink.href = ref;
+        backLink.textContent = "← Quay lại bài viết";
+      }
+    })();
+
     /* ============================================================
        SỬA Ở ĐÂY: mảng "books" này PHẢI giống hệt mảng trong file
        thu-vien.html (cùng id, title, author...). Mỗi khi bạn thêm/
