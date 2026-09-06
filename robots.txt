@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oni-777.github.io/oni.github.io/sitemap.xml

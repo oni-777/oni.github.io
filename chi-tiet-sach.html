@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta id="pageDescription" name="description" content="Mô tả chi tiết, điểm cần cân nhắc và gợi ý đối tượng phù hợp cho từng cuốn sách — từ thư viện ONIREAD.">
 <title id="pageTitle">Mô tả sách</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -369,6 +370,7 @@
         </div>`;
     } else {
       document.getElementById('pageTitle').textContent = book.title + " — " + book.author;
+      document.getElementById('pageDescription').setAttribute('content', book.description.slice(0, 160));
 
       const hasRealBuyLink = book.buyLink && book.buyLink !== "#";
       const buyBtn = hasRealBuyLink
